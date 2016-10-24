@@ -47,31 +47,46 @@ class Post extends Component {
     .catch(function () {
       console.log("request failed");
     });
+    this.clearPostFields()
   }
+
+  clearPostFields() {
+  this.setState({
+    title: "",
+    price: "",
+    description: ""
+  })
+  document.querySelector(".radio").checked = false;
+}
 
   render() {
     return (
       <div className="post">
         <h1>Create a listing</h1>
         <input
+          className="radio"
           type='radio' name="categories" value="housing"
           onChange={(e)=>this.handleCategoryId(e)}
           />Housing
         <input
+          className="radio"
           type='radio' name="categories" value="for sale"
           onChange={(e)=>this.handleCategoryId(e)}
           />For Sale
         <input
           placeholder="title"
           onChange={(e)=>this.handleTitleValues(e)}
+          value={this.state.title}
           />
         <input
           placeholder="price"
           onChange={(e)=>this.handlePriceValues(e)}
+          value={this.state.price}
           />
-        <input
+        <textarea
           placeholder="description"
           onChange={(e)=>this.handleDescriptionValues(e)}
+          value={this.state.description}
           />
         <button
           onClick={()=>this.sendPostToListing()}
