@@ -1,8 +1,37 @@
-.home {
-  background-color: blue;
+body {
+  background-color: black;
+  font-family: 'PT Sans', sans-serif;
 }
 
+.home-page-header {
+  font-size: 50px;
+  color: white;
+}
+
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  background-image: url('.././img/alan_turing.jpg');
+}
+
+.home-buttons {
+  border: none;
+  font-size: 25px;
+  border-radius: 5%;
+  width: 100px;
+  margin-top: 20px;
+  background-color: white;
+  color: #182326;
+  font-family: 'PT Sans', sans-serif;
+}
+
+
 .post {
+  display: flex;
+  flex-direction: column;
   background-color: green;
 }
 

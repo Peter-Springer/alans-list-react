@@ -4,13 +4,15 @@ import {Link} from 'react-router';
 class Home extends Component {
   render() {
     return (
-      <div className="home">
-        <h1>Alanslist</h1>
+      <div className='home-container'>
+      <header className="home-page-header">
+        <h1 className='header'>Welcome to Alanslist</h1>
+      </header>
         <Link to={'/Post'}>
-        <button>Post</button>
+          <button className="home-buttons">Post</button>
         </Link>
         <Link to={'/Browse'}>
-        <button>Browse</button>
+          <button className="home-buttons">Browse</button>
         </Link>
       </div>
     );
