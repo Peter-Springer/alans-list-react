@@ -6,36 +6,72 @@ class Post extends Component {
   super();
   this.state = {
     title: '',
+    price: '',
+    description: '',
+    userId: '',
+    categoryId: '',
   };
 }
 
-  handleTitleValue(e) {
+  handleTitleValues(e) {
       this.setState({ title: e.target.value })
     }
 
+  handlePriceValues(e) {
+      this.setState({ price: e.target.value })
+    }
+
+  handleDescriptionValues(e) {
+      this.setState({ description: e.target.value })
+    }
+
+  handleCategoryId(e) {
+    if (e.target.value === 'housing') {
+      return this.setState({ categoryId: '1' })
+    } else {
+      return this.setState({ categoryId: '2' })
+    }
+  }
+
     sendPostToListing() {
       axios.post('http://localhost:8080/api/v1/listing', {
-      title: 'does this work???',
-      price: '5',
-      description: 'test post request',
+      title: this.state.title,
+      price: this.state.price,
+      description: this.state.description,
       user_id: '1',
-      category_id: '1',
+      category_id: this.state.categoryId
     })
     .then(function () {
       console.log("this worked!");
     })
     .catch(function () {
-      console.log("ah shitt");
+      console.log("request failed");
     });
   }
 
   render() {
     return (
       <div className="post">
-        <h1>MAKE A POST</h1>
+        <h1>Create a listing</h1>
+        <input
+          type='radio' name="categories" value="housing"
+          onChange={(e)=>this.handleCategoryId(e)}
+          />Housing
+        <input
+          type='radio' name="categories" value="for sale"
+          onChange={(e)=>this.handleCategoryId(e)}
+          />For Sale
         <input
           placeholder="title"
-          onChange={(e)=>this.handleTitleValue(e)}
+          onChange={(e)=>this.handleTitleValues(e)}
+          />
+        <input
+          placeholder="price"
+          onChange={(e)=>this.handlePriceValues(e)}
+          />
+        <input
+          placeholder="description"
+          onChange={(e)=>this.handleDescriptionValues(e)}
           />
         <button
           onClick={()=>this.sendPostToListing()}
