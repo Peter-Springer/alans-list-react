@@ -27,19 +27,19 @@ updateState(response) {
 
 renderListings() {
   console.log('href')
-  return this.state.listings.map(m => <article className="message"
-                                       key={m.id}>
-                                       {m.title}<br/>
-                                       {m.price}<br/>
-                                       {m.description}
+  return this.state.listings.map(l => <article className="listing"
+                                       key={l.id}>
+                                       {l.title}<br/>
+                                      ${l.price}<br/>
+                                       {l.description}
                                      </article>)
 }
 
   render() {
     return (
       <section className="browse">
-        <h1>ALL LISTINGS</h1>
-        {this.renderListings()}
+        <h1 className='view-listing-header'>ALL LISTINGS</h1>
+        <section className="all-listings">{this.renderListings()}</section>
       </section>
     );
   }

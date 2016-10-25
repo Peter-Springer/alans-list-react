@@ -62,40 +62,54 @@ class Post extends Component {
 
   render() {
     return (
-      <div className="post">
-        <h1>Create a listing</h1>
+      <form className="post">
+        <h1 className="listing-header">Create a listing</h1>
+        <article className="radio-button-container">
+          <h1 className="category-header">Choose a category</h1>
         <input
           className="radio"
           type='radio' name="categories" value="housing"
           onChange={(e)=>this.handleCategoryId(e)}
-          />Housing
+          /> Housing
         <input
           className="radio"
           type='radio' name="categories" value="for sale"
           onChange={(e)=>this.handleCategoryId(e)}
-          />For Sale
-        <input
-          placeholder="title"
-          onChange={(e)=>this.handleTitleValues(e)}
-          value={this.state.title}
-          />
-        <input
-          placeholder="price"
-          onChange={(e)=>this.handlePriceValues(e)}
-          value={this.state.price}
-          />
+          /> For Sale
+        </article>
+        <article className="title-price-container">
+          <input
+            className="title"
+            placeholder="title"
+            onChange={(e)=>this.handleTitleValues(e)}
+            value={this.state.title}
+            />
+          <input
+            className="price"
+            type='number'
+            placeholder="price"
+            onChange={(e)=>this.handlePriceValues(e)}
+            value={this.state.price}
+            />
+        </article>
         <textarea
+          className="description-box"
           placeholder="description"
           onChange={(e)=>this.handleDescriptionValues(e)}
           value={this.state.description}
           />
-        <button
-          onClick={()=>this.sendPostToListing()}
-          >submit</button>
+        <article className="post-buttons-container">
+          <button
+            className="post-buttons"
+            onClick={(e)=>this.sendPostToListing(e.preventDefault())}
+            >submit</button>
           <Link to={'/Browse'}>
-            <button>View all listings</button>
+            <button
+            className="post-buttons"
+            >View listings</button>
           </Link>
-      </div>
+        </article>
+      </form>
     );
   }
 }

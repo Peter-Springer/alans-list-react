@@ -7,13 +7,15 @@ class Home extends Component {
       <div className='home-container'>
       <header className="home-page-header">
         <h1 className='header'>Welcome to Alanslist</h1>
-      </header>
+        <section className="buttonss">
         <Link to={'/Post'}>
           <button className="home-buttons">Post</button>
         </Link>
         <Link to={'/Browse'}>
           <button className="home-buttons">Browse</button>
         </Link>
+        </section>
+      </header>
       </div>
     );
   }
