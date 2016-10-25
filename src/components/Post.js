@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {Link} from 'react-router';
 
 class Post extends Component {
   constructor() {
@@ -91,6 +92,9 @@ class Post extends Component {
         <button
           onClick={()=>this.sendPostToListing()}
           >submit</button>
+          <Link to={'/Browse'}>
+            <button>View all listings</button>
+          </Link>
       </div>
     );
   }
