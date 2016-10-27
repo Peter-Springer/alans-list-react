@@ -92,7 +92,10 @@ justify-content: center;
 .all-listings {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  margin: auto;
   height: 80%;
+  width: 50%;
 }
 
 .post-buttons-container {
