@@ -108,6 +108,7 @@ justify-content: center;
   background-color: white;
   font-size: 30px;
   margin: 10px;
+  word-break: break-all;
 }
 
 .view-listing-header {

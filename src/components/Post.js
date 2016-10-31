@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router';
+var url = "";
 
 class Post extends Component {
   constructor() {
@@ -11,11 +12,38 @@ class Post extends Component {
     description: '',
     userId: '',
     categoryId: '',
+    image: '',
   };
 }
+  componentDidMount() {
+    this.filez();
+  }
+
+  filez() {
+    debugger;
+    document.getElementById("file-input").onchange = function(){
+      // will log a FileList object, view gifs below
+      console.log(this.files[0])
+    }
+    this.renderImage(this.files)
+  }
+
+renderImage(file) {
+  // generate a new FileReader object
+  var reader = new FileReader();
+  // inject an image with the src url
+  reader.onload = function(event) {
+    url = event.target.result
+    document.querySelector(".title-price-container").appendChild("<img src='" + url + "' />")
+  }
+  // when the file is read it triggers the onload event above.
+  reader.readAsDataURL(file);
+}
+
+
 
   handleTitleValues(e) {
-      this.setState({ title: e.target.value })
+      this.setState({ title: e.target.value})
     }
 
   handlePriceValues(e) {
@@ -48,7 +76,8 @@ class Post extends Component {
     .catch(function () {
       console.log("request failed");
     });
-    this.clearPostFields()
+    this.clearPostFields();
+    this.setImage();
   }
 
   clearPostFields() {
@@ -65,7 +94,9 @@ class Post extends Component {
       <form className="post">
         <h1 className="listing-header">Create a listing</h1>
         <article className="radio-button-container">
-          <h1 className="category-header">Choose a category</h1>
+          <h1 className="category-header"
+            onClick={()=>this.filez()}
+            >Choose a category</h1>
         <input
           className="radio"
           type='radio' name="categories" value="housing"
@@ -98,6 +129,7 @@ class Post extends Component {
           onChange={(e)=>this.handleDescriptionValues(e)}
           value={this.state.description}
           />
+        <input id="file-input" type="file"/>
         <article className="post-buttons-container">
           <button
             className="post-buttons"

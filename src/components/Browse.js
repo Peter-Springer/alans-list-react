@@ -1,5 +1,5 @@
 //html file api
-//
+
 import React, { Component } from 'react';
 import axios from 'axios';
 
@@ -31,9 +31,9 @@ renderListings() {
   console.log('href')
   return this.state.listings.map(l => <article className="listing"
                                        key={l.id}>
-                                       {l.title}<br/>
-                                      ${l.price}<br/>
-                                       {l.description}
+                                       Title:{l.title}<br/>
+                                       Price:${l.price}<br/>
+                                       Description:{l.description}
                                      </article>)
 }
 
