@@ -37,7 +37,11 @@ renderListings() {
                                        Title:{l.title}<br/>
                                        Price:${l.price}<br/>
                                        Description:{l.description}<br/>
-
+                                     {l.image_url === '' ? null :
+                                     <img
+                                       className='image-preview'
+                                       src={l.image_url}/>
+                                     }
                                      </article>)
 }
 
@@ -46,9 +50,6 @@ renderListings() {
       <section className="browse">
         <h1 className='view-listing-header'>ALL LISTINGS</h1>
         <section className="all-listings">{this.renderListings()}</section>
-          <img
-            className='image-preview'
-            src={this.props.uploadedFileCloudinaryUrl} />
       </section>
     );
   }
