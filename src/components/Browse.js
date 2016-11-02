@@ -26,6 +26,9 @@ componentDidMount() {
 updateState(response) {
   this.setState({ listings: response})
 }
+//  <img
+//    className="listing-image"
+//    src="http://firstchoicecarpetcleaners.com/wp-content/uploads/2013/10/UNTE_200252079_3000.jpeg"/>
 
 renderListings() {
   console.log('href')
@@ -33,7 +36,8 @@ renderListings() {
                                        key={l.id}>
                                        Title:{l.title}<br/>
                                        Price:${l.price}<br/>
-                                       Description:{l.description}
+                                       Description:{l.description}<br/>
+
                                      </article>)
 }
 
@@ -42,6 +46,9 @@ renderListings() {
       <section className="browse">
         <h1 className='view-listing-header'>ALL LISTINGS</h1>
         <section className="all-listings">{this.renderListings()}</section>
+          <img
+            className='image-preview'
+            src={this.props.uploadedFileCloudinaryUrl} />
       </section>
     );
   }

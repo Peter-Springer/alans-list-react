@@ -1,45 +1,64 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router';
-var url = "";
+import Dropzone from 'react-dropzone';
+import request from 'superagent';
+const CLOUDINARY_UPLOAD_PRESET = 'fgztpt0k';
+const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dg8s215g5/image/upload';
 
 class Post extends Component {
-  constructor() {
-  super();
+  constructor(props) {
+  super(props);
   this.state = {
     title: '',
     price: '',
     description: '',
     userId: '',
     categoryId: '',
-    image: '',
+    uploadedFileCloudinaryUrl: '',
+    uploadedFile: '',
   };
 }
-  componentDidMount() {
-    this.filez();
-  }
+  // componentDidMount() {
+  //   this.filez();
+  // }
+  //
+  // filez() {
+  //   document.getElementById("file-input").onchange = function(){
+  //     // will log a FileList object, view gifs below
+  //     console.log(this.files[0])
+  //   }
+  // }
 
-  filez() {
-    debugger;
-    document.getElementById("file-input").onchange = function(){
-      // will log a FileList object, view gifs below
-      console.log(this.files[0])
-    }
-    this.renderImage(this.files)
-  }
+  onImageDrop(files) {
+  this.setState({
+    uploadedFile: files[0]
+  });
 
-renderImage(file) {
-  // generate a new FileReader object
-  var reader = new FileReader();
-  // inject an image with the src url
-  reader.onload = function(event) {
-    url = event.target.result
-    document.querySelector(".title-price-container").appendChild("<img src='" + url + "' />")
-  }
-  // when the file is read it triggers the onload event above.
-  reader.readAsDataURL(file);
+  this.handleImageUpload(files[0]);
 }
 
+handleImageUpload(file) {
+  let upload = request.post(CLOUDINARY_UPLOAD_URL)
+                      .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+                      .field('file', file);
+
+  upload.end((err, response) => {
+    if (err) {
+      console.error(err);
+    }
+
+    if (response.body.secure_url !== '') {
+      this.setState({
+        uploadedFileCloudinaryUrl: response.body.secure_url
+      });
+    }
+  });
+}
+
+  handleFiles(e) {
+    this.setState({ imageUrl: e.target.value })
+  }
 
 
   handleTitleValues(e) {
@@ -68,7 +87,8 @@ renderImage(file) {
       price: this.state.price,
       description: this.state.description,
       user_id: '1',
-      category_id: this.state.categoryId
+      category_id: this.state.categoryId,
+      image_url: this.state.uploadedFileCloudinaryUrl,
     })
     .then(function () {
       console.log("this worked!");
@@ -77,7 +97,6 @@ renderImage(file) {
       console.log("request failed");
     });
     this.clearPostFields();
-    this.setImage();
   }
 
   clearPostFields() {
@@ -129,7 +148,6 @@ renderImage(file) {
           onChange={(e)=>this.handleDescriptionValues(e)}
           value={this.state.description}
           />
-        <input id="file-input" type="file"/>
         <article className="post-buttons-container">
           <button
             className="post-buttons"
@@ -141,6 +159,18 @@ renderImage(file) {
             >View listings</button>
           </Link>
         </article>
+        <Dropzone
+          multiple={false}
+          accept="image/*"
+          onDrop={(file)=>this.onImageDrop(file)}>
+          <p>Drop an image or click to select a file to upload.</p>
+        </Dropzone>
+        <div>
+          {this.state.uploadedFileCloudinaryUrl === '' ? null :
+          <div>
+            <p>{this.state.uploadedFile.name}</p>
+          </div>}
+        </div>
       </form>
     );
   }

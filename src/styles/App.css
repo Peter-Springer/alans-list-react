@@ -111,6 +111,16 @@ justify-content: center;
   word-break: break-all;
 }
 
+.image-preview {
+  height: 100px;
+  width: 100px;
+}
+
+.listing-image {
+  height: 50px;
+  width: 50px;
+}
+
 .view-listing-header {
   font-size: 25px;
   margin-bottom: 10px;
