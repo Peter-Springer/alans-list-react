@@ -1,5 +1,3 @@
-//html file api
-
 import React, { Component } from 'react';
 import axios from 'axios';
 
@@ -9,7 +7,6 @@ class Browse extends Component {
     this.state = {
       listings: []
     }
-
   }
 
 componentDidMount() {
@@ -26,9 +23,6 @@ componentDidMount() {
 updateState(response) {
   this.setState({ listings: response})
 }
-//  <img
-//    className="listing-image"
-//    src="http://firstchoicecarpetcleaners.com/wp-content/uploads/2013/10/UNTE_200252079_3000.jpeg"/>
 
 renderListings() {
   console.log('href')
@@ -40,8 +34,8 @@ renderListings() {
                                      {l.image_url === '' ? null :
                                      <img
                                        className='image-preview'
-                                       src={l.image_url}/>
-                                     }
+                                       src={l.image_url}
+                                     />}
                                      </article>)
 }
 

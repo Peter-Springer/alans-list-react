@@ -19,59 +19,38 @@ class Post extends Component {
     uploadedFile: '',
   };
 }
-  // componentDidMount() {
-  //   this.filez();
-  // }
-  //
-  // filez() {
-  //   document.getElementById("file-input").onchange = function(){
-  //     // will log a FileList object, view gifs below
-  //     console.log(this.files[0])
-  //   }
-  // }
 
   onImageDrop(files) {
-  this.setState({
-    uploadedFile: files[0]
-  });
+    this.setState({
+      uploadedFile: files[0]
+    });
 
-  this.handleImageUpload(files[0]);
-}
-
-handleImageUpload(file) {
-  let upload = request.post(CLOUDINARY_UPLOAD_URL)
-                      .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
-                      .field('file', file);
-
-  upload.end((err, response) => {
-    if (err) {
-      console.error(err);
-    }
-
-    if (response.body.secure_url !== '') {
-      this.setState({
-        uploadedFileCloudinaryUrl: response.body.secure_url
-      });
-    }
-  });
-}
-
-  handleFiles(e) {
-    this.setState({ imageUrl: e.target.value })
+    this.handleImageUpload(files[0]);
   }
 
+  handleImageUpload(file) {
+    let upload = request.post(CLOUDINARY_UPLOAD_URL)
+                        .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+                        .field('file', file);
 
-  handleTitleValues(e) {
-      this.setState({ title: e.target.value})
-    }
+    upload.end((err, response) => {
+      if (err) {
+        console.error(err);
+      }
 
-  handlePriceValues(e) {
-      this.setState({ price: e.target.value })
-    }
+      if (response.body.secure_url !== '') {
+        this.setState({
+          uploadedFileCloudinaryUrl: response.body.secure_url
+        });
+      }
+    });
+  }
 
-  handleDescriptionValues(e) {
-      this.setState({ description: e.target.value })
-    }
+  handleChange(e, input) {
+    let change = {}
+    change[input] = e.target.value
+    this.setState(change)
+  }
 
   handleCategoryId(e) {
     if (e.target.value === 'housing') {
@@ -100,22 +79,23 @@ handleImageUpload(file) {
   }
 
   clearPostFields() {
+    debugger;
   this.setState({
     title: "",
     price: "",
-    description: ""
+    description: "",
+    uploadedFileCloudinaryUrl: "",
   })
   document.querySelector(".radio").checked = false;
 }
 
   render() {
     return (
+    <div className='post-container'>
+      <h1 className="listing-header">Create a listing</h1>
       <form className="post">
-        <h1 className="listing-header">Create a listing</h1>
         <article className="radio-button-container">
-          <h1 className="category-header"
-            onClick={()=>this.filez()}
-            >Choose a category</h1>
+          <h1 className="category-header">Categories:</h1>
         <input
           className="radio"
           type='radio' name="categories" value="housing"
@@ -127,51 +107,51 @@ handleImageUpload(file) {
           onChange={(e)=>this.handleCategoryId(e)}
           /> For Sale
         </article>
-        <article className="title-price-container">
+        <article className="input-container">
           <input
             className="title"
             placeholder="title"
-            onChange={(e)=>this.handleTitleValues(e)}
+            onChange={(e)=>this.handleChange(e, "title")}
             value={this.state.title}
             />
           <input
             className="price"
             type='number'
             placeholder="price"
-            onChange={(e)=>this.handlePriceValues(e)}
+            onChange={(e)=>this.handleChange(e, "price")}
             value={this.state.price}
             />
-        </article>
         <textarea
           className="description-box"
           placeholder="description"
-          onChange={(e)=>this.handleDescriptionValues(e)}
+          name="description"
+          onChange={(e)=>this.handleChange(e, "description")}
           value={this.state.description}
           />
-        <article className="post-buttons-container">
-          <button
-            className="post-buttons"
-            onClick={(e)=>this.sendPostToListing(e.preventDefault())}
-            >submit</button>
-          <Link to={'/Browse'}>
-            <button
-            className="post-buttons"
-            >View listings</button>
-          </Link>
         </article>
-        <Dropzone
-          multiple={false}
-          accept="image/*"
-          onDrop={(file)=>this.onImageDrop(file)}>
-          <p>Drop an image or click to select a file to upload.</p>
-        </Dropzone>
-        <div>
-          {this.state.uploadedFileCloudinaryUrl === '' ? null :
-          <div>
-            <p>{this.state.uploadedFile.name}</p>
-          </div>}
-        </div>
+          <Dropzone
+            multiple={false}
+            accept="image/*"
+            onDrop={(file)=>this.onImageDrop(file)}>
+            <p className="img-directions">Drop an image or click to select a file to upload.</p>
+          </Dropzone>
+            {this.state.uploadedFileCloudinaryUrl === '' ? null :
+              <div>
+                <p>{this.state.uploadedFile.name}</p>
+              </div>}
+          <article className="create-listing-buttons-container">
+            <button
+              className="post-buttons"
+              onClick={(e)=>this.sendPostToListing(e.preventDefault())}
+              >submit</button>
+            <Link to={'/Browse'}>
+              <button
+              className="post-buttons"
+              >View listings</button>
+            </Link>
+          </article>
       </form>
+    </div>
     );
   }
 }
