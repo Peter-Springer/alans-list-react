@@ -1,5 +1,3 @@
-//html file api
-//
 import React, { Component } from 'react';
 import axios from 'axios';
 
@@ -9,7 +7,6 @@ class Browse extends Component {
     this.state = {
       listings: []
     }
-
   }
 
 componentDidMount() {
@@ -31,9 +28,14 @@ renderListings() {
   console.log('href')
   return this.state.listings.map(l => <article className="listing"
                                        key={l.id}>
-                                       {l.title}<br/>
-                                      ${l.price}<br/>
-                                       {l.description}
+                                       Title:{l.title}<br/>
+                                       Price:${l.price}<br/>
+                                       Description:{l.description}<br/>
+                                     {l.image_url === '' ? null :
+                                     <img
+                                       className='image-preview'
+                                       src={l.image_url}
+                                     />}
                                      </article>)
 }
 
