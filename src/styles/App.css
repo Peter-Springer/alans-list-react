@@ -156,3 +156,28 @@ justify-content: center;
   color: white;
   text-align: center;
 }
+
+.login-screen-container {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.login-button {
+  font-size: 50px;
+  cursor: pointer;
+  background-color: white;
+  color: #182326;
+  border: none;
+  border-radius: 50%;
+  height: 100px;
+  width: 200px;
+  margin-top: 50px;
+}
+
+.login-header {
+  color: white;
+  font-size: 100px;
+}
