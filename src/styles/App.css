@@ -3,11 +3,6 @@ body {
   font-family: 'PT Sans', sans-serif;
 }
 
-.home-page-header {
-  font-size: 50px;
-  color: white;
-}
-
 .home-container {
   display: flex;
   justify-content: center;
@@ -17,20 +12,17 @@ body {
   background-image: url('.././img/alan_turing.jpg');
 }
 
-.buttonss {
-display: flex;
-justify-content: center;
-}
-
 .home-buttons {
   border: none;
-  font-size: 25px;
-  border-radius: 5%;
-  width: 100px;
+  font-size: 70px;
+  border-radius: 50%;
+  width: 300px;
+  height: 150px;
   margin: 20px;
   background-color: white;
   color: #182326;
   font-family: 'PT Sans', sans-serif;
+  cursor: pointer;
 }
 
 .post-buttons {
@@ -43,11 +35,6 @@ justify-content: center;
   color: #182326;
   font-family: 'PT Sans', sans-serif;
 }
-
-.home-page-header {
-  background-color: #767776;
-}
-
 
 .post-container {
   display: flex;
@@ -175,6 +162,7 @@ justify-content: center;
   height: 100px;
   width: 200px;
   margin-top: 50px;
+  font-family: 'PT Sans', sans-serif;
 }
 
 .login-header {
