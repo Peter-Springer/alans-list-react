@@ -5,11 +5,17 @@ class Browse extends Component {
   constructor() {
     super();
     this.state = {
-      listings: []
+      listings: [],
+      token: ''
     }
   }
 
   componentDidMount() {
+    this.getAllListings()
+    this.handleToken()
+  }
+
+  getAllListings() {
     axios.get('http://localhost:8080/api/v1/listing', {
     })
     .then((response) => {
@@ -24,6 +30,22 @@ class Browse extends Component {
     this.setState({ listings: response})
   }
 
+  handleToken() {
+    this.setState({ token: localStorage.getItem('id_token') })
+  }
+
+  deleteListing(id) {
+    axios.delete(`http://localhost:8080/api/v1/listing/${id}`, {
+    }).then( () => {
+      this.getAllListings()
+    }).then( () => {
+      this.renderListings()
+    })
+    .catch( () => {
+      console.log("request failed");
+    });
+  }
+
   renderListings() {
     return this.state.listings.map(l => <article className="listing"
                                            key={l.id}>
@@ -36,6 +58,10 @@ class Browse extends Component {
                                            alt="listing"
                                            src={l.image_url}
                                            />}
+                                           {l.token === localStorage.getItem('id_token') ?
+                                           <button
+                                            onClick={() => this.deleteListing(l.id)}
+                                            >Delete</button>: null}
                                        </article>)
   }
 
