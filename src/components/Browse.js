@@ -25,7 +25,6 @@ class Browse extends Component {
   }
 
   renderListings() {
-    console.log('href')
     return this.state.listings.map(l => <article className="listing"
                                            key={l.id}>
                                            Title:{l.title}<br/>

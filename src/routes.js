@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, IndexRedirect } from 'react-router';
+import { Router, Route, IndexRoute } from 'react-router';
 import AuthService from './utils/AuthService'
 import Home from './components/Home';
 import Post from './components/Post';
@@ -16,12 +16,8 @@ const auth = new AuthService(AUTH0_CLIENT_ID, AUTH0_DOMAIN);
 
 
 const requireAuth = (nextState, replace) => {
-  debugger;
   if (!auth.loggedIn()) {
     replace({ pathname: '/login' })
-  }
-  if (auth.loggedIn()) {
-    replace({ pathname: '/home' })
   }
 }
 
@@ -29,11 +25,10 @@ const requireAuth = (nextState, replace) => {
 const Routes = (props) => (
   <Router {...props}>
     <Route path="/" component={Container} auth={auth}>
-      <IndexRedirect to="/home" />
-      <Route path="/home" component={Home} />
+      <IndexRoute component={Home} onEnter={requireAuth}/>
       <Route path="/Post" component={Post} />
       <Route path="/Browse" component={Browse} />
-      <Route path="/login" component={Login} onEnter={requireAuth} />
+      <Route path="/login" component={Login} />
     </Route>
   </Router>
 );
