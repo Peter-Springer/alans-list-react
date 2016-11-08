@@ -34,6 +34,7 @@ class Browse extends Component {
                                            {l.image_url === '' ? null :
                                            <img
                                            className='image-preview'
+                                           alt="listing"
                                            src={l.image_url}
                                            />}
                                        </article>)

@@ -1,6 +1,5 @@
 import React, { PropTypes as T } from 'react'
 import AuthService from '../utils/AuthService'
-import {Link} from 'react-router';
 
 export class Login extends React.Component {
   static propTypes = {
