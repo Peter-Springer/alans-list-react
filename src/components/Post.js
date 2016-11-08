@@ -65,21 +65,20 @@ class Post extends Component {
       title: this.state.title,
       price: this.state.price,
       description: this.state.description,
-      user_id: '1',
       category_id: this.state.categoryId,
       image_url: this.state.uploadedFileCloudinaryUrl,
+      token: localStorage.getItem('id_token')
     })
-    .then(function () {
+    .then( () => {
       console.log("this worked!");
     })
-    .catch(function () {
+    .catch( () => {
       console.log("request failed");
     });
     this.clearPostFields();
   }
 
   clearPostFields() {
-    debugger;
   this.setState({
     title: "",
     price: "",
@@ -136,18 +135,16 @@ class Post extends Component {
             <p className="img-directions">Drop an image or click to select a file to upload.</p>
           </Dropzone>
             {this.state.uploadedFileCloudinaryUrl === '' ? null :
-              <div>
-                <p>{this.state.uploadedFile.name}</p>
-              </div>}
+              <div><p>{this.state.uploadedFile.name}</p></div>}
           <article className="create-listing-buttons-container">
             <button
               className="post-buttons"
               onClick={(e)=>this.sendPostToListing(e.preventDefault())}
               >submit</button>
             <Link to={'/Browse'}>
-              <button
-              className="post-buttons"
-              >View listings</button>
+              <button className="post-buttons">
+              View listings
+              </button>
             </Link>
           </article>
       </form>
