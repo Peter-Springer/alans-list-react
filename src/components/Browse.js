@@ -9,35 +9,35 @@ class Browse extends Component {
     }
   }
 
-componentDidMount() {
-  axios.get('http://localhost:8080/api/v1/listing', {
-  })
-  .then((response) => {
-    this.updateState(response.data)
-  })
-  .catch(function () {
-    console.log("request failed");
-  });
-}
+  componentDidMount() {
+    axios.get('http://localhost:8080/api/v1/listing', {
+    })
+    .then((response) => {
+      this.updateState(response.data)
+    })
+    .catch(function () {
+      console.log("request failed");
+    });
+  }
 
-updateState(response) {
-  this.setState({ listings: response})
-}
+  updateState(response) {
+    this.setState({ listings: response})
+  }
 
-renderListings() {
-  console.log('href')
-  return this.state.listings.map(l => <article className="listing"
-                                       key={l.id}>
-                                       Title:{l.title}<br/>
-                                       Price:${l.price}<br/>
-                                       Description:{l.description}<br/>
-                                     {l.image_url === '' ? null :
-                                     <img
-                                       className='image-preview'
-                                       src={l.image_url}
-                                     />}
-                                     </article>)
-}
+  renderListings() {
+    console.log('href')
+    return this.state.listings.map(l => <article className="listing"
+                                           key={l.id}>
+                                           Title:{l.title}<br/>
+                                           Price:${l.price}<br/>
+                                           Description:{l.description}<br/>
+                                           {l.image_url === '' ? null :
+                                           <img
+                                           className='image-preview'
+                                           src={l.image_url}
+                                           />}
+                                       </article>)
+  }
 
   render() {
     return (
