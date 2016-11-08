@@ -49,17 +49,26 @@ class Browse extends Component {
   renderListings() {
     return this.state.listings.map(l => <article className="listing"
                                            key={l.id}>
-                                           Title:{l.title}<br/>
-                                           Price:${l.price}<br/>
-                                           Description:{l.description}<br/>
                                            {l.image_url === '' ? null :
-                                           <img
-                                           className='image-preview'
-                                           alt="listing"
-                                           src={l.image_url}
-                                           />}
+                                             <img
+                                               className='listing-image'
+                                               alt="listing"
+                                               src={l.image_url}
+                                               />}<br/>
+                                             <p className="listing-info">
+                                               <span>Title:</span> {l.title}
+                                             </p>
+                                             <p className="listing-info">
+                                                <span>Price: </span>
+                                                   ${l.price}
+                                            </p>
+                                             <p className="listing-info">
+                                               <span>Description: </span>
+                                               {l.description}
+                                             </p>
                                            {l.token === localStorage.getItem('id_token') ?
                                            <button
+                                            className="delete-button"
                                             onClick={() => this.deleteListing(l.id)}
                                             >Delete</button>: null}
                                        </article>)
@@ -68,7 +77,7 @@ class Browse extends Component {
   render() {
     return (
       <section className="browse">
-        <h1 className='view-listing-header'>ALL LISTINGS</h1>
+        <h1 className='view-listing-header'>LISTINGS</h1>
         <section className="all-listings">{this.renderListings()}</section>
       </section>
     );
