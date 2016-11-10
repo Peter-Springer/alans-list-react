@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {Link} from 'react-router';
 
 class Browse extends Component {
   constructor() {
@@ -78,6 +79,9 @@ class Browse extends Component {
     return (
       <section className="browse">
         <h1 className='view-listing-header'>LISTINGS</h1>
+        <Link to={'/Post'}>
+          <button className="create-post-button">Create a post</button>
+        </Link>
         <section className="all-listings">{this.renderListings()}</section>
       </section>
     );

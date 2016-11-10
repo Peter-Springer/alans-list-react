@@ -180,6 +180,17 @@ body {
   background-color: white;
 }
 
+.browse {
+  text-align: center;
+}
+
+.create-post-button {
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+  background-color: white;
+}
+
 span {
   font-weight: bold;
   font-size: 35px;

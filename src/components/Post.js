@@ -115,7 +115,6 @@ class Post extends Component {
             />
           <input
             className="price"
-            type='number'
             placeholder="price"
             onChange={(e)=>this.handleChange(e, "price")}
             value={this.state.price}
